@@ -34,6 +34,6 @@ RUN ${NODE_BINARY_BASE}/node ${NODE_BINARY_BASE}/npm install -g staticrypt@${STA
 
 # Applying fs patch for assets
 ADD rootfs.tar.gz /
-RUN chmod +x /opt/hugo/*.sh
+RUN chmod +x /opt/hugo/*
 
-ENTRYPOINT ["/opt/hugo/entry.sh"]
+ENTRYPOINT ["run-parts", "/opt/hugo"]

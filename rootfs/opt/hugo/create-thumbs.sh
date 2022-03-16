@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function convert_picture {
+    DIR=$(dirname $1)
+    FILE=$(basename $1 | rev | cut -c5- | rev)
+    EXT=${1: -3}
+
+    SRC=$1
+    DST=$DIR/$FILE-thumb.${EXT}
+
+    if [ -f "$DST" ]; then
+        echo "Not converting ${SRC} because ${DST} exists!"
+    else
+        echo "Converting ${SRC} to ${DST}..."
+        convert $1 -resize "512^>" ${DIR}/${FILE}-thumb.${EXT}
+    fi
+}
+
+export -f convert_picture
+
+find /src/static/images/events/ \( -iname '*.jpg' -o -iname '*.png' \) ! \( -iname '*-thumb.jpg' -o -iname '*-thumb.png' \) | \
+    xargs -L1 -I{} bash -c 'convert_picture "$@"' _ {}

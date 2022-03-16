@@ -5,6 +5,7 @@ ENV HUGO_BINARY hugo_extended_${HUGO_VERSION}_Linux-64bit.deb
 ENV NODE_VERSION 14.17.5
 ENV NODE_BASE node-v${NODE_VERSION}-linux-x64
 ENV NODE_BINARY_BASE /tmp/${NODE_BASE}/bin/
+ENV STATICRYPT_VERSION 1.3.2
 
 # Create working directory
 VOLUME ["/src", "/site"]
@@ -29,7 +30,7 @@ RUN dpkg -i /tmp/hugo.deb && \
 
 # Installing staticrypt to protect member page
 RUN curl https://nodejs.org/dist/v${NODE_VERSION}/${NODE_BASE}.tar.xz /tmp/node.tar.xz | tar -xJ -C /tmp
-RUN ${NODE_BINARY_BASE}/node ${NODE_BINARY_BASE}/npm install -g staticrypt
+RUN ${NODE_BINARY_BASE}/node ${NODE_BINARY_BASE}/npm install -g staticrypt@${STATICRYPT_VERSION}
 
 # Applying fs patch for assets
 ADD rootfs.tar.gz /

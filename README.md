@@ -28,7 +28,6 @@ services:
     volumes:
       - /opt/docker/hugo/volumes/site:/site
       - /opt/docker/hugo/volumes/src:/src
-#    entrypoint: tail -f /dev/null
     environment:
       CRYPT_PWD: "some-pass"
   site:
